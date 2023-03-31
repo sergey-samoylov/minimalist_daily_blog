@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+
+<div class="p-2 text-stone-400">
+    <h1 class="mb-4 font-bold">Регистрация</h1>
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        {{ form.username.label }}
+        {{ form.username }}
+
+        {{ form.password1.label }}
+        {{ form.password1 }}
+        
+        {{ form.password2.label }}
+        {{ form.password2 }}
+
+        <button
+            class="mt-4 p-1 rounded-sm border border-stone-100 
+                bg-stone-300 text-stone-800">Отправить
+        </button>
+    </form>
+</div>
+
+{% endblock %}
+

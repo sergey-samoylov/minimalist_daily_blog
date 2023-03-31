@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+
+<div class="p-2 text-stone-400">
+    <h1 class="mb-4 font-bold">Вход для читателей</h1>
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        <div>
+        {{ form.username.label }}
+        </div>
+        <div>
+        {{ form.username }}
+        </div>
+        <div>
+        {{ form.password.label }}
+        </div>
+        <div>
+        {{ form.password }}
+        </div>
+        
+        <button
+            class="mt-4 p-1 rounded-sm border border-stone-100 
+                bg-stone-300 text-stone-800">Войти
+        </button>
+    </form>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,22 @@
+
+{% extends 'core/base.html' %}
+
+{% block title %}Создать статью{% endblock %}
+
+{% block content %}
+
+<div class="p-2 text-stone-400">
+    <h1 class="mb-4 font-bold">Создать статью</h1>
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <button
+            class="mt-4 p-1 rounded-sm border border-stone-100 
+                bg-stone-300 text-stone-800">Опубликовать
+        </button>
+    </form>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,94 @@
+
+{% extends 'core/base.html' %}
+
+{% block title %}{{ story.title }}{% endblock %}
+
+{% block content %}
+
+        <div class="p-2 flex bg-stone-700 text-orange-600">
+            {% if not story.has_voted %}
+                <a href="{% url 'story:vote' story.id %}?redirect_page=detail" class="px-3">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6"
+                        >
+                        <path
+                            stroke-linecap="round" stroke-linejoin="round"
+                            d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                        </svg>
+                </a>
+            {% endif %}
+            <div>
+                <p 
+                    class="px-3 text-teal-500"
+                    >
+                    <a 
+                        href="{% url 'story:detail' story.id%}"
+                        >{{ story.title}}
+                    </a>
+                    {% if story.url %}
+                        <a
+                            href="{{ story.url }}"
+                            class="px-3 text-sky-600"
+                            >({{ story.url|truncatechars:30 }})
+                        </a>
+                    {% elif story.text %}
+                        <p class="px-3 text-stone-400">{{ story.text }}</p>
+                    {% endif%}
+                </p>
+                <div class="px-3 flex text-gray-500">
+                    <p>{{ story.number_of_votes }} голосов | Автор публикации {{ story.created_by.username }} |
+                    {{ story.created_at | timesince }} назад </p>
+                    <p class="px-3">|</p>
+                    <p>{{ story.comments.count }} комментариев</p>
+                    
+                    {% if story.has_voted %}
+                        <p class="px-3">|</p>
+                        <a
+                            href="{% url 'story:unvote' story.id%}?redirect_page=core:detail"
+                            class="px-3"
+                            >снять голос
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    
+    <div class="mt-4 p-2">
+    {% if request.user.is_authenticated %}
+        <form
+            method="post"
+            action="."
+            class="text-stone-600"
+        >
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button
+                class="mt-4 p-1 rounded-sm border border-stone-100
+                    bg-stone-400 text-stone-800">Добавить комментарий
+            </button>
+        </form>
+    {% else %}
+        <p>Комментировать посты можно только после регистрации на сайте</p>
+    {% endif%}
+    </div>
+
+    <div class="p-2">
+        {% for comment in story.comments.all %}
+            <div class="p-2">
+                <p class="text-stone-300">
+                    {{ comment.created_by.username }}
+                    |
+                    {{ comment.created_at|timesince }} назад
+                </p>
+                <p class="mt-2 text-stone-400">
+                    {{ comment.text }}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
