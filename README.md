@@ -19,3 +19,6 @@
 |____/|_|\___/ \__, |
                |___/ 
 </pre>
+
+## This project looks like Hacker News with some styling tweaks
+https://samoylov.sytes.net/
