@@ -21,4 +21,4 @@
 </pre>
 
 ## This project looks like Hacker News with some styling tweaks
-https://samoylov.sytes.net/
+[Samoylov.sytes.net](http://samoylov.sytes.net)
